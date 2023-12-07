@@ -7,6 +7,9 @@ const app = express()
 app.use(cors());
 const bodyParser = require('body-parser');
 const { createOrder, capturePayment } = require('./paypal-api');
+const { connection } = require('./config/db');
+
+
 app.use(bodyParser.json());
 app.get('/', (request,response)=>{
     response.send('this is running')
@@ -39,8 +42,10 @@ app.post("/payment/capture-paypal-order", async (req, res) => {
 });
 
 
-app.listen(port,()=>{
+app.listen(port, async()=>{
+
     try{
+       await connection();
         console.log('port is running in 2926')
     }
     catch(err){

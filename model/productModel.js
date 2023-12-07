@@ -14,6 +14,14 @@ const dataSchema = mongoose.Schema({
         required: true
     },
     "price": {
+        type: Number,
+        required: true
+    },
+    "quantity": {
+        type: Number,
+        required: true
+    },
+    "cat": {
         type: String,
         required: true
     },
