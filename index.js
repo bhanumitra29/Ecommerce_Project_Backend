@@ -8,6 +8,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 const { createOrder, capturePayment } = require('./paypal-api');
 const { connection } = require('./config/db');
+const { userRouter } = require('./userRouter');
 
 
 app.use(bodyParser.json());
@@ -18,6 +19,7 @@ app.get('/', (request,response)=>{
 
 
 app.use('/api',categoryRouter)
+app.use("/user", userRouter);
 
 
 app.post("/payment/create-paypal-order", async (req, res) => {

@@ -10,9 +10,7 @@ categoryRouter.get('/all',allDataController)
 // categoryRouter.get('watches',watchesController)
 // categoryRouter.get('/accessories',accessoriesController)
 categoryRouter.get('/slider',slideController)
-categoryRouter.get('/',auth,homeController)
-categoryRouter.post("/register",register)
-categoryRouter.post('/login',login)
+
 categoryRouter.get('/add',addingData)
 categoryRouter.get('/find',datatoReact)
 
