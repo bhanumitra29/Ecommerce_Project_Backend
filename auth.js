@@ -1,29 +1,30 @@
-
-const jwt = require("jsonwebtoken");
-const { secret_key } = require("./secret");
-
-
-const auth = (req, res, next) => {
-    const BearerToken = req.headers["authorization"];
+const jwt=require('jsonwebtoken');
+// const { secret_key } = require('./secret');
+const secret_key = "bhanu"
+const auth=(req,res,next)=>{
+    const BearerToken=req.headers['authorization'];
     console.log("this is bearer", BearerToken);
-    if (BearerToken) {
-        const token = BearerToken.split(" ")[1];
-        try {
-            const validate = jwt.verify(token, secret_key);
-            if (validate) {
-                req.user = validate;
-                next();
-            } else {
-                console.log("User not authorized!");
-            }
-        } catch (error) {
-            console.log("Error verifying token:", error.message);
-            console.log("User not authorized!");
+    console.log(BearerToken)
+    
+    if(BearerToken){
+        const token=BearerToken.split(" ")[1];
+        try{
+        const isvaliduser=jwt.verify(token,secret_key)
+        if(isvaliduser){
+            req.user=isvaliduser;
+            next();
         }
+    else{
+        console.log({msg:"Not Authorized"})
     }
-    else {
-        console.log("User not allowed!");
     }
-};
+    catch(error){
+        console.log({msg:error})
+    }
+}
+else{
+    console.log("user not allowed")
+}
 
-module.exports = {auth};
+}
+module.exports= {auth};

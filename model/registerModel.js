@@ -18,5 +18,5 @@ const registerSchema=new mongoose.Schema({
         required:true
     }
 })
-const regSh=mongoose.model('register',registerSchema);
-module.exports={regSh}
+const regSchema=mongoose.model('register',registerSchema);
+module.exports= {regSchema}

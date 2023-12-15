@@ -32,10 +32,11 @@ const slideController = (req,res)=>{
 
 const addingData = async(req,res)=>{
    
-    const result = await productDB.create(TotalData);
-    console.log(result)
-    return res.send(result)
-
+    for(let i=0;i<TotalData.length;i++){
+     await productDB.create(TotalData[i]);
+    
+    }
+    return res.send("Success")
 }
 
 const datatoReact = async(req,res)=>{
