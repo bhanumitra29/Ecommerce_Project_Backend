@@ -1,7 +1,7 @@
 const jwt=require('jsonwebtoken');
 // const { secret_key } = require('./secret');
 const secret_key = "bhanu"
-const auth=(req,res,next)=>{
+const authh=(req,res,next)=>{
     const BearerToken=req.headers['authorization'];
     console.log("this is bearer", BearerToken);
     console.log(BearerToken)
@@ -27,4 +27,4 @@ else{
 }
 
 }
-module.exports= {auth};
+module.exports= {authh};

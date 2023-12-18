@@ -70,7 +70,7 @@ const userauth = async (req, res) => {
                 res.send({ msg: "User Authorized", userdata: userinfo })
             }
             else {
-                res.send("User not found");
+                res.status(404).send("User not found");
             }
         }
         catch (err) {
@@ -80,38 +80,69 @@ const userauth = async (req, res) => {
     console.log("user authorized!");
 }
 
-const createcheckout = async (req, res) => {
-    const { products } = req.body;
-    console.log(products);
-  
-    const lineItems = products.map((prod) => ({
+const createcheckout1 = async (req, res) => {
+    
+        const { products } = req.body;
+        console.log(products);
       
-      price_data: {
-        currency: "inr",
-        product_data: {
-          name: prod.name,
-        },
-        unit_amount: prod.price * 100,
-      },
-      quantity: prod.quantity
-    }));
+        const lineItems = products.map((prod) => ({
+          
+          price_data: {
+            currency: "inr",
+            product_data: {
+              name: prod.name,
+            },
+            unit_amount: prod.price * 100,
+          },
+          quantity: prod.quantity
+        }));
+      
+        try {
+          const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: lineItems,
+            mode: "payment",
+            success_url: "http://localhost:3000/Success",
+            cancel_url: "http://localhost:3000/Cancel",
+          });
+      
+          res.json({ id: session.id });
+        } catch (error) {
+          console.error('Error creating checkout session:', error);
+          res.status(500).json({ error: 'Internal Server Error' });
+      }
+      };
+//     const { products } = req.body;
+//     console.log(products);
   
-    try {
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: lineItems,
-        mode: "payment",
-        success_url: "http://localhost:3000/Success",
-        cancel_url: "http://localhost:3000/Cancel",
-      });
+//     const lineItems = products.map((prod) => ({
+      
+//       price_data: {
+//         currency: "inr",
+//         product_data: {
+//           name: prod.name,
+//         },
+//         unit_amount: prod.price * 100,
+//       },
+//       quantity: prod.quantity
+//     }));
   
-      res.json({ id: session.id });
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  };
+//     try {
+//       const session = await stripe.checkout.sessions.create({
+//         payment_method_types: ['card'],
+//         line_items: lineItems,
+//         mode: "payment",
+//         success_url: "http://localhost:3000/Success",
+//         cancel_url: "http://localhost:3000/Cancel",
+//       });
+  
+//       res.json({ id: session.id });
+//     } catch (error) {
+//       console.error('Error creating checkout session:', error);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//     }
+//   };
  
 
 
-module.exports = { register, login, userauth, createcheckout};
+module.exports = { register, login, userauth, createcheckout1};
