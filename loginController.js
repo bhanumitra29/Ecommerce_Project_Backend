@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const { secret_key } = require('./secret'); 
 const { regSchema } = require('./model/registerModel');
 // const stripe=require("stripe")("sk_test_51ONW0JSJoaZaL7s6sCtHytA4RKMvz9prM8pincTmfL5xRWe0d4n12rHCkM6x1SGl8INVqySOgLlivEtZtrIPpSau00baOnaXMw")
-const stripe=require("stripe")("sk_test_51ONW0JSJoaZaL7s6sCtHytA4RKMvz9prM8pincTmfL5xRWe0d4n12rHCkM6x1SGl8INVqySOgLlivEtZtrIPpSau00baOnaXMw")
+const stripe=require("stripe")("sk_test_51OMERySJb30zHYKXRtntVAOMPx8ClokJnGOlIPN1IBbaP06OUAf0e4jFlBPAnUsEPy6uK7zORnT48RFKNRH14DC2002ZAtE6HX")
 
 const register = async(req, res) => {
     const data = req.body;
