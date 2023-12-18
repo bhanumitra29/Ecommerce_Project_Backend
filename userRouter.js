@@ -10,5 +10,5 @@ const userRouter = require("express").Router();
 userRouter.post("/register", register);
 userRouter.post("/login", login);
 userRouter.get("/auth", authh, userauth );
-userRouter.get("/createcheckout1",createcheckout1);
+userRouter.post("/createcheckout1",createcheckout1);
 module.exports = {userRouter}
