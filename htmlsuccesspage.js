@@ -36,6 +36,10 @@ const htmlsuccesspage = `
             font-size: 48px;
             margin-bottom: 20px;
         }
+
+        a {
+            text-decoration: none;
+        }
     </style>
     <title>paymentResult</title>
 </head>
