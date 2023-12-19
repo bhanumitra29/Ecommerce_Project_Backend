@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { secret_key } = require('./secret'); 
 const { regSchema } = require('./model/registerModel');
+const { htmlsuccesspage } = require('./htmlsuccesspage');
 // const stripe=require("stripe")("sk_test_51ONW0JSJoaZaL7s6sCtHytA4RKMvz9prM8pincTmfL5xRWe0d4n12rHCkM6x1SGl8INVqySOgLlivEtZtrIPpSau00baOnaXMw")
 const stripe=require("stripe")("sk_test_51OMERySJb30zHYKXRtntVAOMPx8ClokJnGOlIPN1IBbaP06OUAf0e4jFlBPAnUsEPy6uK7zORnT48RFKNRH14DC2002ZAtE6HX")
 
@@ -102,8 +103,10 @@ const createcheckout1 = async (req, res) => {
             payment_method_types: ['card'],
             line_items: lineItems,
             mode: "payment",
-            success_url: "http://localhost:3000/Success",
-            cancel_url: "http://localhost:3000/Cancel",
+            success_url: "https://ecommerce-project-backend-w01h.onrender.com/user/Success",
+            // success_url: res.send({ msg: 'Payment Successful'}),
+            cancel_url: "https://ecommerce-project-backend-w01h.onrender.com/user/Cancel",
+            // cancel_url: res.send({ msg: 'Payment Failed'}),
           });
       
           res.json({ id: session.id });
@@ -142,7 +145,15 @@ const createcheckout1 = async (req, res) => {
 //       res.status(500).json({ error: 'Internal Server Error' });
 //     }
 //   };
+
+const Success = (req, res) => {
+    return res.send(htmlsuccesspage)
+}
+
+const Cancel = (req, res) => {
+    return res.send({msg:"cancel"})
+}
  
 
 
-module.exports = { register, login, userauth, createcheckout1};
+module.exports = { register, login, userauth, createcheckout1, Success, Cancel};
